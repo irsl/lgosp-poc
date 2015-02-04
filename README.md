@@ -41,11 +41,10 @@ netstat -nap|grep 8382
 The LG On Screen Phone client software running on PC connects to this TCP port.
 After receiving the initial banner, the client sends the following binary message to the server running on the phone:
 
-
-00000000  18 00 1c 96 dd 82 c2 31  0a 0d 5a dc 05 2a 23 f4 .......1 ..Z..*..
-
+```
+00000000  18 00 1c 96 dd 82 c2 31  0a 0d 5a dc 05 2a 23 f4 .......1 ..Z..*#.
 00000010  21 a5 d3 02 01 00 00 34  33 30 39 30             !......4 3090
-
+```
 
 This message triggers the confirmation dialog on the phone asking the user whether they wanted to allow this connection.
 If the user hits cancel, the phone server sends a response with a negative message to the client and then closes the TCP connection immediately.
@@ -71,3 +70,6 @@ Recommendations
 ---------------
 *End Users*: Update the OSP appliaction to revision 4.3.010 or newer through LG Update Center.
 
+Links
+-----
+https://www.youtube.com/watch?v=Wd8XydalVas
