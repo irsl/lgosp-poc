@@ -27,16 +27,20 @@ Technical details
 
 The vulnerable code resides in the On Screen Phone component:
 
+```
 shell@geehrc:/ $ps |grep osp
 system    1411  303   559616 44504 ffffffff 00000000 S com.lge.osp
+```
 
 It is started automatically on boot and there is no way in the system settings to turn it off.
 
 The process is listening on 0 0.0.0.0:8382:
 
+```
 shell@geehrc:/ $ netstat -nap|grep 8382
 netstat -nap|grep 8382
  tcp       0      0 0.0.0.0:8382           0.0.0.0:*              LISTEN
+```
 
 The LG On Screen Phone client software running on PC connects to this TCP port.
 After receiving the initial banner, the client sends the following binary message to the server running on the phone:
