@@ -21,6 +21,38 @@ This vulnerability was fixed in LG OSP v4.3.010
 Most smart phone models of LG are affected and the OSP application is even preinstalled, and there is no
 option to uninstall or stop it. On newer models, like G3 the OSP application is not preinstalled anymore.
 
+Technical details
+-----------------
+
+
+The vulnerable code resides in the On Screen Phone component:
+
+shell@geehrc:/ $ps |grep osp
+system    1411  303   559616 44504 ffffffff 00000000 S com.lge.osp
+
+It is started automatically on boot and there is no way in the system settings to turn it off.
+
+The process is listening on 0 0.0.0.0:8382:
+
+shell@geehrc:/ $ netstat -nap|grep 8382
+netstat -nap|grep 8382
+ tcp       0      0 0.0.0.0:8382           0.0.0.0:*              LISTEN
+
+The LG On Screen Phone client software running on PC connects to this TCP port.
+After receiving the initial banner, the client sends the following binary message to the server running on the phone:
+
+00000000  18 00 1c 96 dd 82 c2 31  0a 0d 5a dc 05 2a 23 f4 .......1 ..Z..*#.
+00000010  21 a5 d3 02 01 00 00 34  33 30 39 30             !......4 3090
+
+This message triggers the confirmation dialog on the phone asking the user whether they wanted to allow this connection.
+If the user hits cancel, the phone server sends a response with a negative message to the client and then closes the TCP connection immediately.
+
+*However, the server process does not require this message to be sent before serving another requests*, like initiating the video stream or submitting files, handling key/touchscreen events, notifications.
+Using a modified client it is possible to connect to the phone without the confirmation dialog being displayed on the phone.
+
+*The attacker has full control over the phone.*
+
+
 Proof of Concept
 ----------------
 The Proof of Concept code was tested against G1 and G2 models.
