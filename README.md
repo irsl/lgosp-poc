@@ -70,8 +70,10 @@ The osp-proxy script excepts the official LG On Screen Phone application would c
 which is possible by running osp-discovery.pl. 
 
 
-Recommendations
----------------
+Timeline
+--------
+SEARCH-LAB Ltd. responsibly reported this threat to the manufacturer in September 2014 who confirmed the severity of the issue and started working on the fix in turn. The patched version of the application is now available to download through LG’s Update Center and/or will be available in form of Maintenance Release for some models. LG smartphone users should make sure to have at least version 4.3.010 of the On Screen Phone (OSP) application installed. Please note that when OSP is pre-installed, the device is vulnerable by default – OSP is started automatically and cannot be disabled in Settings.
+
 *End Users*: Update the OSP appliaction to revision 4.3.010 or newer through LG Update Center.
 
 Links
